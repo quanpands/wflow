@@ -2,12 +2,13 @@ FROM ubuntu:18.04
 # Add and install dependencies.
 ADD requirements.txt requirements.txt
 
-RUN apt-get update --fix-missing && apt install -yq python3-minimal python3-pip\
+RUN apt-get update --fix-missing \
+    && apt install -yq python3-minimal python3-pip\
     && pip3 install --upgrade pip \
     && pip install -r requirements.txt \
     && apt install -y cmake gcc g++ git libboost-all-dev libgdal-dev libncurses5-dev \
-    libpython2.7-dev libpython3.6-dev libpython-dev libqwt-qt5-dev libxerces-c-dev \
-    libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev python-docopt wget \
+       libpython2.7-dev libpython3.6-dev libpython-dev libqwt-qt5-dev libxerces-c-dev \
+       libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev python-docopt wget \
     && wget http://pcraster.geo.uu.nl/pcraster/4.2.0/pcraster-4.2.0.tar.bz2 \
     && tar xf pcraster-4.2.0.tar.bz2 && cd pcraster-4.2.0 \
     && mkdir build && cd build \
@@ -32,9 +33,9 @@ RUN apt-get update --fix-missing && apt install -yq python3-minimal python3-pip\
 #   'encoding' is an invalid keyword argument for this function
 
 COPY . /opt/wflow/
-WORKDIR /opt/wflow
-RUN apt-get install -y python-setuptools \
-    && python setup.py install
+WORKDIR /opt/wflow/wflow
+RUN apt-get install -y python3-setuptools \
+    && python3 setup.py install
 
 
 ENV PYTHONPATH "${PYTONPATH}:$HOME/pcraster/python"
