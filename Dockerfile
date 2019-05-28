@@ -22,9 +22,9 @@ ENV PATH "${PATH}:$HOME/pcraster/bin"
 RUN export PYTHONPATH && export PATH
 RUN pip install psq
 
-# Add application code.
-ADD . app/
-WORKDIR app/hydro_model_generator_wflow/
-
-EXPOSE 8080
-CMD gunicorn -b :$PORT hydro_model_generator_wflow:app
+# # Add application code.
+# ADD . app/
+# WORKDIR app/hydro_model_generator_wflow/
+# 
+# EXPOSE 8080
+# CMD gunicorn -b :$PORT hydro_model_generator_wflow:app
