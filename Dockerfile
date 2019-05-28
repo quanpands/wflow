@@ -14,13 +14,28 @@ RUN apt-get update --fix-missing && apt install -yq python3-minimal python3-pip\
     && cmake -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DCMAKE_INSTALL_PREFIX:PATH=$HOME/pcraster .. \
     && cmake --build . \
     && make install
-# Install wflow
+
+# # Install wflow
 # RUN git clone --recursive 'https://github.com/openstreams/wflow' \
 #     && cd wflow/wflow-py && apt-get install -y python-setuptools && python setup.py install
-RUN git clone --recursive 'https://github.com/openstreams/wflow' \
-    && cd wflow \
-    && apt-get install -y python-setuptools \
+
+# RUN git clone --recursive 'https://github.com/openstreams/wflow' \
+#     && cd wflow \
+#     && apt-get install -y python-setuptools \
+#     && python setup.py install
+# >>
+#   Traceback (most recent call last):
+#   File "setup.py", line 15, in <module>
+#   with open(os.path.join(here, "README.rst"), encoding="utf-8") as f:
+#   TypeError
+#   :
+#   'encoding' is an invalid keyword argument for this function
+
+COPY . /opt/wflow/
+WORKDIR /opt/wflow
+RUN apt-get install -y python-setuptools \
     && python setup.py install
+
 
 ENV PYTHONPATH "${PYTONPATH}:$HOME/pcraster/python"
 ENV PATH "${PATH}:$HOME/pcraster/bin"
