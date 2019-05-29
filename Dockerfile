@@ -19,18 +19,20 @@ RUN apt install -y wget cmake gcc g++ git qtbase5-dev \
 RUN wget http://pcraster.geo.uu.nl/pcraster/4.2.0/pcraster-4.2.0.tar.bz2 \
     && tar xf pcraster-4.2.0.tar.bz2 && cd pcraster-4.2.0 \
     && mkdir build && cd build \
-    && cmake -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DCMAKE_INSTALL_PREFIX:PATH=$HOME/pcraster -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3 .. \
+    && cmake -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/pcraster -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3 .. \
     && cmake --build . \
     && make install
 # RUN python3 --version \
 #     && pip3 --version \
+#     && pip --version \
 #     && gdalinfo --version
 
 
-# # Install wflow
+# # Install wflow, Org
 # RUN git clone --recursive 'https://github.com/openstreams/wflow' \
 #     && cd wflow/wflow-py && apt-get install -y python-setuptools && python setup.py install
 
+# # Install wflow, Error
 # RUN git clone --recursive 'https://github.com/openstreams/wflow' \
 #     && cd wflow \
 #     && apt-get install -y python-setuptools \
@@ -43,16 +45,17 @@ RUN wget http://pcraster.geo.uu.nl/pcraster/4.2.0/pcraster-4.2.0.tar.bz2 \
 #   :
 #   'encoding' is an invalid keyword argument for this function
 
+# Install wflow, Success
 COPY . /opt/wflow/
 WORKDIR /opt/wflow/wflow
 RUN export CPLUS_INCLUDE_PATH=/usr/include/gdal \
     && export C_INCLUDE_PATH=/usr/include/gdal \
     && python3 setup.py install
 
-
-ENV PYTHONPATH "${PYTONPATH}:$HOME/pcraster/python"
-ENV PATH "${PATH}:$HOME/pcraster/bin"
-RUN export PYTHONPATH && export PATH
+# Set pcraster environment
+ENV PYTHONPATH "${PYTONPATH}:/usr/local/pcraster/python" 
+ENV PATH "${PATH}:/usr/local/pcraster/bin"
+# RUN export PYTHONPATH && export PATH
 RUN pip3 install psq
 
 # # Add application code.
