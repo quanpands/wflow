@@ -1,5 +1,5 @@
-GDAL/
-pcraster/
+# GDAL/
+# pcraster/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
