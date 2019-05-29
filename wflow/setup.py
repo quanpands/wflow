@@ -29,7 +29,7 @@ setup(
     install_requires=[
         "numpy",
         "scipy",
-        "gdal==2.2.4",
+        "gdal==2.2.3",
         "netCDF4",
         "cftime",
         "numba",

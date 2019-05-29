@@ -1,20 +1,29 @@
 FROM ubuntu:18.04
 # Add and install dependencies.
+WORKDIR /opt
 ADD requirements.txt requirements.txt
 
 RUN apt-get update --fix-missing \
-    && apt install -yq python3-minimal python3-pip\
+    && apt install -yq python3-minimal python3-pip \
+       python3-numpy python3-docopt python3-setuptools \
     && pip3 install --upgrade pip \
-    && pip install -r requirements.txt \
-    && apt install -y cmake gcc g++ git libboost-all-dev libgdal-dev libncurses5-dev \
-       libpython2.7-dev libpython3.6-dev libpython-dev libqwt-qt5-dev libxerces-c-dev \
-       libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev python-docopt wget \
+    && pip3 install -r requirements.txt
+
+#       libpython2.7-dev \
+RUN apt install -y wget cmake gcc g++ git qtbase5-dev \
+       libboost-all-dev libncurses5-dev libxml2 libxml2-utils libxslt1-dev libxerces-c-dev libqwt-qt5-dev \
+       gdal-bin libgdal-dev \
+       libpython3.6-dev libpython-dev \
     && wget http://pcraster.geo.uu.nl/pcraster/4.2.0/pcraster-4.2.0.tar.bz2 \
     && tar xf pcraster-4.2.0.tar.bz2 && cd pcraster-4.2.0 \
     && mkdir build && cd build \
-    && cmake -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DCMAKE_INSTALL_PREFIX:PATH=$HOME/pcraster .. \
+    && cmake -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DCMAKE_INSTALL_PREFIX:PATH=$HOME/pcraster -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3 .. \
     && cmake --build . \
     && make install
+# RUN python3 --version \
+#     && pip3 --version \
+#     && gdalinfo --version
+
 
 # # Install wflow
 # RUN git clone --recursive 'https://github.com/openstreams/wflow' \
@@ -34,14 +43,13 @@ RUN apt-get update --fix-missing \
 
 COPY . /opt/wflow/
 WORKDIR /opt/wflow/wflow
-RUN apt-get install -y python3-setuptools \
-    && python3 setup.py install
+RUN python3 setup.py install
 
 
 ENV PYTHONPATH "${PYTONPATH}:$HOME/pcraster/python"
 ENV PATH "${PATH}:$HOME/pcraster/bin"
 RUN export PYTHONPATH && export PATH
-RUN pip install psq
+RUN pip3 install psq
 
 # # Add application code.
 # ADD . app/
