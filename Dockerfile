@@ -1,12 +1,12 @@
 FROM ubuntu:18.04
-# Add and install dependencies.
+RUN apt-get update --fix-missing
+
 WORKDIR /opt
 ADD requirements.txt requirements.txt
 
-RUN apt-get update --fix-missing \
-    && apt install -yq python3-minimal python3-pip \
+RUN apt install -yq python3-minimal python3-pip \
     && pip3 install --upgrade pip \
-    && pip3 install -r requirements.txt
+    && pip install -r requirements.txt
 
 #       libpython2.7-dev \
 RUN apt install -y wget cmake gcc g++ git qtbase5-dev \
