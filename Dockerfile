@@ -45,7 +45,9 @@ RUN wget http://pcraster.geo.uu.nl/pcraster/4.2.0/pcraster-4.2.0.tar.bz2 \
 
 COPY . /opt/wflow/
 WORKDIR /opt/wflow/wflow
-RUN python3 setup.py install
+RUN export CPLUS_INCLUDE_PATH=/usr/include/gdal \
+    && export C_INCLUDE_PATH=/usr/include/gdal \
+    && python3 setup.py install
 
 
 ENV PYTHONPATH "${PYTONPATH}:$HOME/pcraster/python"
