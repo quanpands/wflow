@@ -8,13 +8,14 @@ RUN apt install -yq python3-minimal python3-pip \
     && pip3 install --upgrade pip \
     && pip install -r requirements.txt
 
-#       libpython2.7-dev \
 RUN apt install -y wget cmake gcc g++ git qtbase5-dev \
        libboost-all-dev libncurses5-dev libxml2 libxml2-utils libxslt1-dev libxerces-c-dev libqwt-qt5-dev \
        gdal-bin libgdal-dev \
        libpython3.6-dev libpython-dev \
-       python3-numpy python3-docopt python3-setuptools \
-    && wget http://pcraster.geo.uu.nl/pcraster/4.2.0/pcraster-4.2.0.tar.bz2 \
+       python3-numpy python3-docopt python3-setuptools
+#       libpython2.7-dev \
+
+RUN wget http://pcraster.geo.uu.nl/pcraster/4.2.0/pcraster-4.2.0.tar.bz2 \
     && tar xf pcraster-4.2.0.tar.bz2 && cd pcraster-4.2.0 \
     && mkdir build && cd build \
     && cmake -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DCMAKE_INSTALL_PREFIX:PATH=$HOME/pcraster -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3 .. \
