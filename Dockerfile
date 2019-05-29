@@ -8,11 +8,12 @@ RUN apt install -yq python3-minimal python3-pip \
     && pip3 install --upgrade pip \
     && pip install -r requirements.txt
 
+# GDAL https://launchpad.net/ubuntu/+source/gdal/2.2.3+dfsg-2
 RUN apt install -y wget cmake gcc g++ git qtbase5-dev \
        libboost-all-dev libncurses5-dev libxml2 libxml2-utils libxslt1-dev libxerces-c-dev libqwt-qt5-dev \
-       gdal-bin libgdal-dev \
        libpython3.6-dev libpython-dev \
-       python3-numpy python3-docopt python3-setuptools
+       gdal-bin gdal-data libgdal-dev libgdal20 \
+       python3-numpy python3-docopt python3-setuptools python3-gdal
 #       libpython2.7-dev \
 
 RUN wget http://pcraster.geo.uu.nl/pcraster/4.2.0/pcraster-4.2.0.tar.bz2 \
