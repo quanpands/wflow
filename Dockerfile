@@ -5,7 +5,6 @@ ADD requirements.txt requirements.txt
 
 RUN apt-get update --fix-missing \
     && apt install -yq python3-minimal python3-pip \
-       python3-numpy python3-docopt python3-setuptools \
     && pip3 install --upgrade pip \
     && pip3 install -r requirements.txt
 
@@ -14,6 +13,7 @@ RUN apt install -y wget cmake gcc g++ git qtbase5-dev \
        libboost-all-dev libncurses5-dev libxml2 libxml2-utils libxslt1-dev libxerces-c-dev libqwt-qt5-dev \
        gdal-bin libgdal-dev \
        libpython3.6-dev libpython-dev \
+       python3-numpy python3-docopt python3-setuptools \
     && wget http://pcraster.geo.uu.nl/pcraster/4.2.0/pcraster-4.2.0.tar.bz2 \
     && tar xf pcraster-4.2.0.tar.bz2 && cd pcraster-4.2.0 \
     && mkdir build && cd build \
