@@ -16,10 +16,13 @@ RUN apt install -y wget cmake gcc g++ git qtbase5-dev \
        python3-numpy python3-docopt python3-setuptools python3-gdal
 #       libpython2.7-dev \
 
+
 COPY . /opt/wflow/
 WORKDIR /opt/wflow/pcraster/pcraster-4.2.0/pcraster-4.2.0
 # RUN wget http://pcraster.geo.uu.nl/pcraster/4.2.0/pcraster-4.2.0.tar.bz2 \
 #     && tar xf pcraster-4.2.0.tar.bz2 && cd pcraster-4.2.0 \
+
+# # /opt/wflow/pcraster/pcraster-4.2.0/pcraster-4.2.0/build/*.deb
 RUN mkdir build && cd build \
     && cmake -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/pcraster -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3 .. \
     && cmake --build . \
@@ -48,21 +51,24 @@ RUN mkdir build && cd build \
 #   :
 #   'encoding' is an invalid keyword argument for this function
 
-# Install wflow, Success
-WORKDIR /opt/wflow/wflow
-RUN export CPLUS_INCLUDE_PATH=/usr/include/gdal \
-    && export C_INCLUDE_PATH=/usr/include/gdal \
-    && python3 setup.py install
 
-# Set pcraster environment
-ENV PYTHONPATH "${PYTONPATH}:/usr/local/pcraster/python" 
-ENV PATH "${PATH}:/usr/local/pcraster/bin"
-# RUN export PYTHONPATH && export PATH
-RUN pip3 install psq
-
-# # Add application code.
-# ADD . app/
-# WORKDIR app/hydro_model_generator_wflow/
+# # Install wflow, Success
+# # WORKDIR /opt/wflow/wflow
+# RUN export CPLUS_INCLUDE_PATH=/usr/include/gdal \
+#     && export C_INCLUDE_PATH=/usr/include/gdal \
+#     && python3 setup.py install
 # 
-# EXPOSE 8080
-# CMD gunicorn -b :$PORT hydro_model_generator_wflow:app
+# 
+# # Set pcraster environment
+# ENV PYTHONPATH "${PYTONPATH}:/usr/local/pcraster/python" 
+# ENV PATH "${PATH}:/usr/local/pcraster/bin"
+# # RUN export PYTHONPATH && export PATH
+# RUN pip3 install psq
+# 
+# 
+# # # Add application code.
+# # ADD . app/
+# # WORKDIR app/hydro_model_generator_wflow/
+# # 
+# # EXPOSE 8080
+# # CMD gunicorn -b :$PORT hydro_model_generator_wflow:app
