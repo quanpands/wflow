@@ -1,0 +1,53 @@
+/*!
+    @brief      Group containing the Fern.Algorithm module code
+    @defgroup   fern_algorithm_group Algorithm module
+    @ingroup    fern_group
+    @sa         fern_algorithm_policy_group
+
+
+    Fern.Algorithm is a library of algorithms for data manipulation.
+    The algorithms have been classified in various categories.
+    Each algorithm is configurable using policies. Most/all algorithms have
+    overloads that allow them to be called with default policies. Default
+    policies
+    are always those policies that do not do anything. For example, the default
+    policy for testing input value for no-data is the
+    fern::algorithm::SkipNoData policy, which does not incur any overhead.
+*/
+
+
+/*!
+    @brief      Group containing argument traits.
+    @defgroup   fern_algorithm_argument_traits_group Argument traits
+    @ingroup    fern_algorithm_group
+    @sa         fern_data_type_traits_group
+
+
+    Argument traits provide type traits of various argument types.
+*/
+
+
+/*!
+    @brief      Group containing argument customization points.
+    @defgroup   fern_algorithm_argument_customization_point_group Argument \
+                customization group
+    @ingroup    fern_algorithm_group
+    @sa         fern_data_customization_point_group,
+                fern_mask_customization_point_group
+
+
+    Template functions implementing functionality for different argument types.
+*/
+
+
+/*!
+    @brief      Group containing mask customization points.
+    @defgroup   fern_algorithm_mask_customization_point_group Mask \
+                customization group
+    @ingroup    fern_algorithm_group
+    @sa         fern_data_customization_point_group,
+                fern_algorithm_argument_customization_point_group
+
+
+    Template functions implementing functionality for different mask types.
+*/

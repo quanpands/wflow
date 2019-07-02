@@ -1,0 +1,28 @@
+add_unit_tests(
+    SCOPE algorithm_algebra_elementary
+    NAMES
+        absolute_test
+        add_test
+        ceil_test
+        divide_test
+        equal_test
+        factorial_test
+        floor_test
+        greater_equal_test
+        greater_test
+        less_test
+        less_equal_test
+        log_test
+        log10_test
+        log2_test
+        multiply_test
+        pow_test
+        round_test
+        sqrt_test
+        subtract_test
+        tgamma_test
+        trunc_test
+    LINK_LIBRARIES
+        fern::algorithm
+        fern::feature
+)

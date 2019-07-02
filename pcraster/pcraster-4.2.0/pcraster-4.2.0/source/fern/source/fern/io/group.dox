@@ -1,0 +1,8 @@
+/*!
+    @brief      Group containing the Fern.IO module code
+    @defgroup   fern_io_group IO module
+    @ingroup    fern_group
+
+
+    Fern.IO is a library for performing I/O to various data formats.
+*/

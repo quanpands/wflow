@@ -1,0 +1,92 @@
+// See solutions_readme.txt for general information about this file.
+{
+    "solutions": [
+        {
+            "label": "Ubuntu 16.04 x86_64 PCRaster no options selected",
+            "box": "ubuntu/xenial64",
+            "provisions": [
+                "apt -y update",
+                "apt -y upgrade",
+                "apt -y autoremove",
+                "apt -y install cmake gcc g++ git libboost-all-dev libncurses5-dev libpython-dev libqwt-qt5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev python-docopt"
+            ],
+            "commands": [
+                "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
+                "python ./build_pcraster.py pcraster_4_2_beta --build-gdal"
+            ]
+        },
+        {
+            "label": "Ubuntu 14.04 x86_64 gcc-4.9 default build",
+            "box": "ubuntu/trusty64",
+            "provisions": [
+                "add-apt-repository -y ppa:ubuntu-toolchain-r/test",
+                "apt-get -y update",
+                "apt-get -y upgrade",
+                "apt-get -y autoremove",
+                "apt-get -y install gcc-4.9 g++-4.9 git libboost-all-dev libncurses5-dev libpython-dev python-numpy qt5-default qtbase5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-docopt",
+                "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-x86_64.tar.gz && tar zxf cmake-3.5.2-Linux-x86_64.tar.gz"
+            ],
+            "commands": [
+                "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
+                "PATH=/opt/cmake-3.5.2-Linux-x86_64/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-qwt"
+            ]
+        },
+        {
+            "label": "Ubuntu 14.04 x86_32 gcc-4.9 default build",
+            "box": "ubuntu/trusty32",
+            "provisions": [
+                "add-apt-repository -y ppa:ubuntu-toolchain-r/test",
+                "apt-get -y update",
+                "apt-get -y upgrade",
+                "apt-get -y autoremove",,
+                "apt-get -y install gcc-4.9 g++-4.9 git libboost-all-dev libncurses5-dev libpython-dev python-numpy qt5-default qtbase5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-docopt",
+                "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-i386.tar.gz && tar zxf cmake-3.5.2-Linux-i386.tar.gz"
+            ],
+            "commands": [
+                "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
+                "PATH=/opt/cmake-3.5.2-Linux-i386/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-qwt"
+            ]
+        },
+        {
+            "label": "Centos 7 64bit gcc-5 default build",
+            "box": "centos/7",
+            "provisions": [
+                "sudo yum -y install git wget libxslt libxml2 numpy",
+                "sudo yum -y install freeglut-devel ncurses-devel libxslt-devel libxml2-devel libcurl-devel xerces-c-devel python-devel",
+                "sudo yum -y install epel-release",
+                "sudo yum -y update",
+                // Skip this, it may update all kinds of packages to
+                // non-standard versions.
+                // "sudo yum -y upgrade",
+                "sudo yum -y install cmake3 qt5-qtbase-devel python2-docopt",
+                "sudo yum -y install centos-release-scl",
+                "sudo yum -y install devtoolset-4-gcc devtoolset-4-gcc-c++"
+            ],
+            "commands": [
+                "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
+                "sed -i.tmp \"s/cmake/cmake3/\" build_pcraster.py",
+                "scl enable devtoolset-4 \"python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-boost --build-qwt \""
+            ]
+        },
+        {
+            "label": "Debian Stretch (testing) x86_64 PCRaster",
+            "box": "debian/testing64",
+            "provisions": [
+                "apt -y update",
+                "apt -y upgrade",
+                "apt -y autoremove",
+                "apt -y install cmake gcc g++ git libboost-all-dev libgdal-dev libncurses5-dev libpython-dev libqwt-qt5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev python-docopt"
+            ],
+            "commands": [
+                "git clone --recursive https://github.com/pcraster/pcraster.git",
+                "mkdir build",
+                "cd build && cmake -DFERN_BUILD_ALGORITHM:BOOL=TRUE ../pcraster && cmake --build ."
+
+                // Builds with tweaks can be added here, within the same
+                // machine. Just build in a new build directory, remove the
+                // build directory first.
+
+            ]
+        }
+    ]
+}

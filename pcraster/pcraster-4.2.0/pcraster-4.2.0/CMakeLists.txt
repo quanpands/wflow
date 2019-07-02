@@ -1,0 +1,68 @@
+if(PCRASTER_BUILD_TEST)
+    cmake_minimum_required(VERSION 3.7)
+else()
+    cmake_minimum_required(VERSION 3.3)
+endif()
+
+project(pcraster)
+
+set(DEV_CURRENT_YEAR "2018")
+
+set(${PROJECT_NAME}_ORGANISATION_NAME "PCRaster Research and Development Team")
+set(${PROJECT_NAME}_COPYRIGHT
+    "1990-${DEV_CURRENT_YEAR}, The ${${PROJECT_NAME}_ORGANISATION_NAME}")
+set(${PROJECT_NAME}_PROJECT_NAME "${PROJECT_NAME}")
+set(${PROJECT_NAME}_HOMEPAGE "http://www.pcraster.eu")
+set(${PROJECT_NAME}_MAJOR_VERSION "4")
+set(${PROJECT_NAME}_MINOR_VERSION "2")
+set(${PROJECT_NAME}_PATCH_VERSION "0")
+set(${PROJECT_NAME}_PRE_RELEASE_VERSION "")
+set(${PROJECT_NAME}_VERSION
+    "${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION}${${PROJECT_NAME}_PRE_RELEASE_VERSION}")
+
+set(CMAKE_MODULE_PATH
+    $ENV{CMAKE_MODULE_PATH}
+    ${CMAKE_CURRENT_SOURCE_DIR}/devbase/cmake
+    ${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake
+)
+include(PCRaster)
+
+add_subdirectory(source)
+add_subdirectory(documentation)
+
+# Create version information file
+# Dummy target that does nothing. This enables us to attach build commands.
+add_custom_target(version_info_dummy_target ALL)
+
+add_custom_command(
+    TARGET
+      version_info_dummy_target
+    PRE_BUILD
+    COMMAND
+      "${CMAKE_COMMAND}" -DVER=${pcraster_VERSION} -DSRC_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P "${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake/PCRasterVersionInformation.cmake"
+)
+
+
+install(
+  FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/pcraster_version.txt
+  DESTINATION
+    doc
+)
+
+SET(CPACK_SET_DESTDIR "on")
+SET(CPACK_PACKAGING_INSTALL_PREFIX "/tmp")
+
+SET(CPACK_GENERATOR "DEB")
+SET(CPACK_PACKAGE_VERSION_MAJOR "4")
+SET(CPACK_PACKAGE_VERSION_MINOR "2")
+SET(CPACK_PACKAGE_VERSION_PATCH "0")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Quan Pan") #required
+
+SET(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${MAJOR_VERSION}.${MINOR_VERSION}.${CPACK_PACKAGE_VERSION_PATCH}")
+SET(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${MAJOR_VERSION}.${MINOR_VERSION}.${CPACK_PACKAGE_VERSION_PATCH}")
+SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+
+SET(CPACK_DEBIAN_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
+
+INCLUDE(CPack)

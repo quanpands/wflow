@@ -1,0 +1,16 @@
+PROJECT_NAME            = ${PROJECT_NAME}
+PROJECT_BRIEF           = www.geoneric.eu
+# TODO PROJECT_LOGO            = ${PROJECT_BINARY_DIR}/document/texts/logo/...
+${DOXYGEN_TEMPLATE}
+EXCLUDE_PATTERNS        = */detail/* \
+                          *_test.cc \
+                          ${CMAKE_CURRENT_SOURCE_DIR}/fern/expression_tree \
+                          ${CMAKE_CURRENT_SOURCE_DIR}/fern/expression_tree_1 \
+                          ${CMAKE_CURRENT_SOURCE_DIR}/fern/expression_templates \
+EXCLUDE_SYMBOLS         = *::detail \
+                          H5 \
+                          XERCES_CPP_NAMESPACE \
+                          xml_schema \
+                          boost \
+                          std
+                          # xsd

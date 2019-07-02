@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<Operations>
+<!--
+  <Operation>
+    <Name>debug</Name>
+    <Description>Print the argument value to the standard output stream.</Description>
+    <Parameters>
+      <Parameter>
+        <Name>value</Name>
+        <Description>Value to print.</Description>
+        <DataTypes>
+          <DataType>All</DataType>
+        </DataTypes>
+        <ValueTypes>
+          <ValueType>All</ValueType>
+        </ValueTypes>
+      </Parameter>
+    </Parameters>
+    <Results/>
+  </Operation>
+  <Operation>
+    <Name>Plus</Name>
+    <Description>Each element in the result will be the sum of the corresponding element in the two arguments.</Description>
+    <Parameters>
+      <Parameter>
+        <Name>parameter1</Name>
+        <Description>First parameter.</Description>
+        <DataTypes>
+          <DataType>Value</DataType>
+          <DataType>Raster</DataType>
+        </DataTypes>
+        <ValueTypes>
+          <ValueType>Number</ValueType>
+        </ValueTypes>
+      </Parameter>
+      <Parameter>
+        <Name>parameter2</Name>
+        <Description>Second parameter.</Description>
+        <DataTypes>
+          <DataType>Value</DataType>
+          <DataType>Raster</DataType>
+        </DataTypes>
+        <ValueTypes>
+          <ValueType>Number</ValueType>
+        </ValueTypes>
+      </Parameter>
+    </Parameters>
+    <Results>
+      <Result>
+        <Name>result</Name>
+        <Description>Result of adding the two parameters.</Description>
+        <DataType>All</DataType>
+        <ValueType>Number</ValueType>
+      </Result>
+    </Results>
+  </Operation>
+-->
+  <Operation>
+    <Name>int32</Name>
+    <Description>Cast argument to int32.</Description>
+    <Parameters>
+      <Parameter>
+        <Name>parameter</Name>
+        <Description>Parameter.</Description>
+        <DataTypes>
+          <DataType>All</DataType>
+        </DataTypes>
+        <ValueTypes>
+          <ValueType>Number</ValueType>
+        </ValueTypes>
+      </Parameter>
+    </Parameters>
+    <Results>
+      <Result>
+        <Name>result</Name>
+        <Description>The argument value as an int32.</Description>
+        <DataType>All</DataType>
+        <ValueType>Int32</ValueType>
+      </Result>
+    </Results>
+  </Operation>
+  <Operation>
+    <Name>abs</Name>
+    <Description>Calculate the absolute value of the argument.</Description>
+    <Parameters>
+      <Parameter>
+        <Name>parameter</Name>
+        <Description>Parameter.</Description>
+        <DataTypes>
+          <DataType>All</DataType>
+        </DataTypes>
+        <ValueTypes>
+          <ValueType>Number</ValueType>
+        </ValueTypes>
+      </Parameter>
+    </Parameters>
+    <Results>
+      <Result>
+        <Name>result</Name>
+        <Description>The absolute value of the argument.</Description>
+        <DataType>All</DataType>
+        <ValueType>Number</ValueType>
+      </Result>
+    </Results>
+  </Operation>
+  <Operation>
+    <Name>add</Name>
+    <Description>Calculate the sum of the arguments.</Description>
+    <Parameters>
+      <Parameter>
+        <Name>parameter1</Name>
+        <Description>Parameter.</Description>
+        <DataTypes>
+          <DataType>Constant</DataType>
+        </DataTypes>
+        <ValueTypes>
+          <ValueType>Number</ValueType>
+        </ValueTypes>
+      </Parameter>
+      <Parameter>
+        <Name>parameter2</Name>
+        <Description>Parameter.</Description>
+        <DataTypes>
+          <DataType>Constant</DataType>
+        </DataTypes>
+        <ValueTypes>
+          <ValueType>Number</ValueType>
+        </ValueTypes>
+      </Parameter>
+    </Parameters>
+    <Results>
+      <Result>
+        <Name>result</Name>
+        <Description>The sum of the arguments.</Description>
+        <DataType>Constant</DataType>
+        <ValueType>Number</ValueType>
+      </Result>
+    </Results>
+  </Operation>
+  <Operation>
+    <Name>count</Name>
+    <Description>Sum the number of feature elements in a feature.</Description>
+    <Parameters>
+      <Parameter>
+        <Name>feature</Name>
+        <Description>Feature.</Description>
+        <DataTypes>
+          <DataType>Feature</DataType>
+        </DataTypes>
+        <ValueTypes/>
+      </Parameter>
+    </Parameters>
+    <Results>
+      <Result>
+        <Name>result</Name>
+        <Description>Sum of feature elements.</Description>
+        <DataType>Constant</DataType>
+        <ValueType>Size</ValueType>
+      </Result>
+    </Results>
+  </Operation>
+  <Operation>
+    <Name>read</Name>
+    <Description>Read a feature from a dataset.</Description>
+    <Parameters>
+      <Parameter>
+        <Name>name</Name>
+        <Description>Dataset name.</Description>
+        <DataTypes>
+          <DataType>Constant</DataType>
+        </DataTypes>
+        <ValueTypes>
+          <ValueType>String</ValueType>
+        </ValueTypes>
+      </Parameter>
+    </Parameters>
+    <Results>
+      <Result>
+        <Name>result</Name>
+        <Description>Feature read.</Description>
+        <DataType>Feature</DataType>
+        <ValueType>All</ValueType>
+      </Result>
+    </Results>
+  </Operation>
+</Operations>

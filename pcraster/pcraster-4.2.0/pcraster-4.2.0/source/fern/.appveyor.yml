@@ -1,0 +1,48 @@
+environment:
+    BOOST_VERSION: 1.59.0
+    # BOOST_ROOT: "C:\\projects\\fern\\boost.%BOOST_VERSION%.0\\lib\\native"
+    CMAKE_ARGUMENTS: "-DBOOST_ROOT=C:\\projects\\fern\\boost.%BOOST_VERSION%.0\\lib\\native -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DFERN_BUILD_TEST:BOOL=TRUE"
+
+    matrix:
+        - ADDRESS_MODEL: 64
+          CMAKE_GENERATOR: "Visual Studio 14 2015 Win64"
+
+
+platform:
+    - x64
+
+
+configuration:
+    - Debug
+    - Release
+
+
+matrix:
+    fast_finish: true
+
+
+install:
+    - git submodule update --init --recursive
+    - nuget install boost -Version %BOOST_VERSION%
+    - nuget install boost_chrono-vc140 -Version %BOOST_VERSION%
+    - nuget install boost_filesystem-vc140 -Version %BOOST_VERSION%
+    - nuget install boost_system-vc140 -Version %BOOST_VERSION%
+    - nuget install boost_timer-vc140 -Version %BOOST_VERSION%
+    - nuget install boost_unit_test_framework-vc140 -Version %BOOST_VERSION%
+    - mkdir boost.%BOOST_VERSION%.0\lib\native\lib
+    - copy boost_chrono-vc140.%BOOST_VERSION%.0\lib\native\address-model-%ADDRESS_MODEL%\lib\* boost.%BOOST_VERSION%.0\lib\native\lib
+    - copy boost_filesystem-vc140.%BOOST_VERSION%.0\lib\native\address-model-%ADDRESS_MODEL%\lib\* boost.%BOOST_VERSION%.0\lib\native\lib
+    - copy boost_system-vc140.%BOOST_VERSION%.0\lib\native\address-model-%ADDRESS_MODEL%\lib\* boost.%BOOST_VERSION%.0\lib\native\lib
+    - copy boost_timer-vc140.%BOOST_VERSION%.0\lib\native\address-model-%ADDRESS_MODEL%\lib\* boost.%BOOST_VERSION%.0\lib\native\lib
+    - copy boost_unit_test_framework-vc140.%BOOST_VERSION%.0\lib\native\address-model-%ADDRESS_MODEL%\lib\* boost.%BOOST_VERSION%.0\lib\native\lib
+
+
+build_script:
+    - cmake -G"%CMAKE_GENERATOR%" %CMAKE_ARGUMENTS% -H. -Bbuild
+    - cmake --build build --config "%CONFIGURATION%"
+
+
+# TODO Hangs in core_stopwatch_test???
+test_script:
+    - cd build
+    - ctest -C "%CONFIGURATION%"  # -E core_stopwatch_test
