@@ -26,8 +26,8 @@ WORKDIR /opt/wflow/pcraster/pcraster-4.2.0/pcraster-4.2.0
 RUN mkdir build && cd build \
     && cmake -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/pcraster -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3 .. \
     && cmake --build . \
-    && cpack
-#     && make install
+    && cpack \
+    && make install
 # RUN python3 --version \
 #     && pip3 --version \
 #     && pip --version \
@@ -52,18 +52,18 @@ RUN mkdir build && cd build \
 #   'encoding' is an invalid keyword argument for this function
 
 
-# # Install wflow, Success
-# # WORKDIR /opt/wflow/wflow
-# RUN export CPLUS_INCLUDE_PATH=/usr/include/gdal \
-#     && export C_INCLUDE_PATH=/usr/include/gdal \
-#     && python3 setup.py install
-# 
-# 
-# # Set pcraster environment
-# ENV PYTHONPATH "${PYTONPATH}:/usr/local/pcraster/python" 
-# ENV PATH "${PATH}:/usr/local/pcraster/bin"
-# # RUN export PYTHONPATH && export PATH
-# RUN pip3 install psq
+# Install wflow, Success
+WORKDIR /opt/wflow/wflow
+RUN export CPLUS_INCLUDE_PATH=/usr/include/gdal \
+    && export C_INCLUDE_PATH=/usr/include/gdal \
+    && python3 setup.py install
+
+
+# Set pcraster environment
+ENV PYTHONPATH "${PYTONPATH}:/usr/local/pcraster/python" 
+ENV PATH "${PATH}:/usr/local/pcraster/bin"
+# RUN export PYTHONPATH && export PATH
+RUN pip3 install psq
 # 
 # 
 # # # Add application code.
