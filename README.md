@@ -68,7 +68,7 @@ gcloud app deploy --image-url eu.gcr.io/hydro-earth/wflow-worker --project hydro
 gcloud app logs tail -s hydro-model-generator-wflow --project=hydro-earth
 ```
 
-# Docker wflow:test
+# Docker wflow:test, 20190729
 
 ## Change [tasks.py](https://github.com/openearth/hydro-earth/blob/master/hydroearth/tasks/tasks.py)
 
